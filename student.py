@@ -147,6 +147,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 from sklearn import linear_model 
+# found KNN, SVM, SGDClassifier
 # from sklearn import model_C
 
 # TODO: Initialize the three models
@@ -183,18 +184,68 @@ for clf in [clf_A, clf_B, clf_C,clf_D,clf_E,clf_F]:
 #for clf in [clf_A, clf_B, clf_C]:
 #    clf_name = clf.__class__.__name__
 #    print(results[clf_name])
+    
+# loading library
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
 
+# instantiate learning model (k = 3)
+knn = KNeighborsClassifier(n_neighbors=3)
 
-from sklearn.ensemble import AdaBoostClassifier
+# fitting the model
+knn.fit(X_train_300, y_train_300)
+
+# predict the response
+pred = knn.predict(X_test)
+
+# evaluate accuracy
+print accuracy_score(y_test, pred)
+
+from sklearn.datasets import make_blobs
+
+X, y = make_blobs(n_samples=300, n_features=7,centers=2,
+                  random_state=0, cluster_std=1.0)
+#plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='rainbow');
+print(X.shape)
+print(y.shape)
+
+#from sklearn.metrics import make_scorer, r2_score
+
+#from sklearn.ensemble import AdaBoostClassifier
 
 # TODO: Import a supervised learning model that has 'feature_importances_'
-clf = AdaBoostClassifier(random_state=543)
+#clf = AdaBoostClassifier(random_state=543)
 
 # TODO: Train the supervised model on the training set using .fit(X_train, y_train)
-model = clf.fit(X_train_300,y_train_300)
+#model = clf.fit(X_train_300,y_train_300)
 
 
 # TODO: Extract the feature importances using .feature_importances_ 
-importances = clf.feature_importances_
+#importances = clf.feature_importances_
 
-print importances
+
+# TODO: Import 'GridSearchCV' and 'make_scorer'
+#from sklearn.model_selection import GridSearchCV
+#from sklearn.metrics import make_scorer, r2_score
+
+# TODO: Create the parameters list you wish to tune
+#parameters = None
+
+# TODO: Initialize the classifier
+#clf = None
+
+# TODO: Make an f1 scoring function using 'make_scorer' 
+#f1_scorer = None
+
+# TODO: Perform grid search on the classifier using the f1_scorer as the scoring method
+#grid_obj = None
+
+# TODO: Fit the grid search object to the training data and find the optimal parameters
+#grid_obj = None
+
+# Get the estimator
+#clf = grid_obj.best_estimator_
+
+# Report the final F1 score for training and testing after parameter tuning
+#print "Tuned model has a training F1 score of {:.4f}.".format(predict_labels(clf, X_train, y_train))
+#print "Tuned model has a testing F1 score of {:.4f}.".format(predict_labels(clf, X_test, y_test))
